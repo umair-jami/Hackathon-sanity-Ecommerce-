@@ -3,6 +3,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import "../globals.css";
 import Header from "@/components/Header";
 import { SanityLive } from "@/sanity/lib/live";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,6 +22,7 @@ export default function RootLayout({
           <main>
             <Header />
             {children}
+            <Footer/>
             <SanityLive/>
           </main>
         </body>

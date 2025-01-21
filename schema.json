@@ -620,6 +620,23 @@
         },
         "optional": true
       },
+      "new": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "boolean"
+        },
+        "optional": true
+      },
+      "colors": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "string"
+          }
+        },
+        "optional": true
+      },
       "tags": {
         "type": "objectAttribute",
         "value": {
@@ -953,44 +970,29 @@
       "category": {
         "type": "objectAttribute",
         "value": {
-          "type": "array",
-          "of": {
-            "type": "object",
-            "attributes": {
-              "_ref": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
-                }
-              },
-              "_type": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string",
-                  "value": "reference"
-                }
-              },
-              "_weak": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "boolean"
-                },
-                "optional": true
-              }
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "tshirt"
             },
-            "dereferencesTo": "category",
-            "rest": {
-              "type": "object",
-              "attributes": {
-                "_key": {
-                  "type": "objectAttribute",
-                  "value": {
-                    "type": "string"
-                  }
-                }
-              }
+            {
+              "type": "string",
+              "value": "short"
+            },
+            {
+              "type": "string",
+              "value": "jeans"
+            },
+            {
+              "type": "string",
+              "value": "hoodie"
+            },
+            {
+              "type": "string",
+              "value": "shirt"
             }
-          }
+          ]
         },
         "optional": true
       },

@@ -112,6 +112,8 @@ export type Product = {
   priceWithoutDiscount?: number;
   rating?: number;
   ratingCount?: number;
+  new?: boolean;
+  colors?: Array<string>;
   tags?: Array<string>;
   sizes?: Array<string>;
   image?: {
@@ -155,13 +157,7 @@ export type Product = {
     _type: "image";
     _key: string;
   }>;
-  category?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "category";
-  }>;
+  category?: "tshirt" | "short" | "jeans" | "hoodie" | "shirt";
   stock?: number;
 };
 
@@ -287,6 +283,95 @@ export type SanityImageMetadata = {
 
 export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Order | Product | Sale | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./sanity/lib/orders/getMyOrders.tsx
+// Variable: MY_ORDERS_QUERY
+// Query: *[_type == "order" && clerkUserId == $userId] | order(orderDate desc) {        ...,        products[] {          ...,          product->        }      }
+export type MY_ORDERS_QUERYResult = Array<{
+  _id: string;
+  _type: "order";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  orderNumber?: string;
+  stripeCheckoutSessionId?: string;
+  stripeCustomerId?: string;
+  clerkUserId?: string;
+  customerName?: string;
+  email?: string;
+  stripePaymentIntentId?: string;
+  products: Array<{
+    product: {
+      _id: string;
+      _type: "product";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      name?: string;
+      currency?: string;
+      slug?: Slug;
+      price?: number;
+      discountPercentage?: number;
+      priceWithoutDiscount?: number;
+      rating?: number;
+      ratingCount?: number;
+      new?: boolean;
+      colors?: Array<string>;
+      tags?: Array<string>;
+      sizes?: Array<string>;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      description?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+        listItem?: "bullet";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      } | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+        _key: string;
+      }>;
+      category?: "hoodie" | "jeans" | "shirt" | "short" | "tshirt";
+      stock?: number;
+    } | null;
+    quantity?: number;
+    _key: string;
+  }> | null;
+  totalPrice?: number;
+  currency?: string;
+  amountDiscount?: number;
+  status?: "cancelled" | "delivered" | "paid" | "pending" | "shipped";
+  orderDate?: string;
+}>;
+
 // Source: ./sanity/lib/products/getAllCategories.ts
 // Variable: ALL_CATEGORIES_QUERY
 // Query: *[_type == "category"] | order(name asc)
@@ -318,6 +403,8 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
   priceWithoutDiscount?: number;
   rating?: number;
   ratingCount?: number;
+  new?: boolean;
+  colors?: Array<string>;
   tags?: Array<string>;
   sizes?: Array<string>;
   image?: {
@@ -361,13 +448,7 @@ export type ALL_PRODUCTS_QUERYResult = Array<{
     _type: "image";
     _key: string;
   }>;
-  category?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "category";
-  }>;
+  category?: "hoodie" | "jeans" | "shirt" | "short" | "tshirt";
   stock?: number;
 }>;
 
@@ -388,6 +469,8 @@ export type NEW_PRODUCT_QUERYResult = Array<{
   priceWithoutDiscount?: number;
   rating?: number;
   ratingCount?: number;
+  new?: boolean;
+  colors?: Array<string>;
   tags?: Array<string>;
   sizes?: Array<string>;
   image?: {
@@ -431,13 +514,7 @@ export type NEW_PRODUCT_QUERYResult = Array<{
     _type: "image";
     _key: string;
   }>;
-  category?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "category";
-  }>;
+  category?: "hoodie" | "jeans" | "shirt" | "short" | "tshirt";
   stock?: number;
 }>;
 
@@ -458,6 +535,8 @@ export type PRODUCT_BY_SLUG_QUERYResult = {
   priceWithoutDiscount?: number;
   rating?: number;
   ratingCount?: number;
+  new?: boolean;
+  colors?: Array<string>;
   tags?: Array<string>;
   sizes?: Array<string>;
   image?: {
@@ -501,13 +580,7 @@ export type PRODUCT_BY_SLUG_QUERYResult = {
     _type: "image";
     _key: string;
   }>;
-  category?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "category";
-  }>;
+  category?: "hoodie" | "jeans" | "shirt" | "short" | "tshirt";
   stock?: number;
 } | null;
 
@@ -528,6 +601,8 @@ export type PRODUCTS_BY_CATEGORY_QUERYResult = Array<{
   priceWithoutDiscount?: number;
   rating?: number;
   ratingCount?: number;
+  new?: boolean;
+  colors?: Array<string>;
   tags?: Array<string>;
   sizes?: Array<string>;
   image?: {
@@ -571,13 +646,7 @@ export type PRODUCTS_BY_CATEGORY_QUERYResult = Array<{
     _type: "image";
     _key: string;
   }>;
-  category?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "category";
-  }>;
+  category?: "hoodie" | "jeans" | "shirt" | "short" | "tshirt";
   stock?: number;
 }>;
 
@@ -598,6 +667,8 @@ export type TOP_SELLING_QUERYResult = Array<{
   priceWithoutDiscount?: number;
   rating?: number;
   ratingCount?: number;
+  new?: boolean;
+  colors?: Array<string>;
   tags?: Array<string>;
   sizes?: Array<string>;
   image?: {
@@ -641,13 +712,7 @@ export type TOP_SELLING_QUERYResult = Array<{
     _type: "image";
     _key: string;
   }>;
-  category?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "category";
-  }>;
+  category?: "hoodie" | "jeans" | "shirt" | "short" | "tshirt";
   stock?: number;
 }>;
 
@@ -668,6 +733,8 @@ export type PRODUCT_SEARCH_QUERYResult = Array<{
   priceWithoutDiscount?: number;
   rating?: number;
   ratingCount?: number;
+  new?: boolean;
+  colors?: Array<string>;
   tags?: Array<string>;
   sizes?: Array<string>;
   image?: {
@@ -711,13 +778,7 @@ export type PRODUCT_SEARCH_QUERYResult = Array<{
     _type: "image";
     _key: string;
   }>;
-  category?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "category";
-  }>;
+  category?: "hoodie" | "jeans" | "shirt" | "short" | "tshirt";
   stock?: number;
 }>;
 
@@ -743,6 +804,7 @@ export type ACTIVE_SALE_BY_COUPON_QUERYResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
+    "\n      *[_type == \"order\" && clerkUserId == $userId] | order(orderDate desc) {\n        ...,\n        products[] {\n          ...,\n          product->\n        }\n      }\n    ": MY_ORDERS_QUERYResult;
     "*[_type == \"category\"] | order(name asc)": ALL_CATEGORIES_QUERYResult;
     "*[_type == \"product\"] | order(name asc)": ALL_PRODUCTS_QUERYResult;
     "*[_type == \"product\" && \"NewArrival\" in tags]": NEW_PRODUCT_QUERYResult;

@@ -1,4 +1,5 @@
 "use client";
+import { createCheckoutSession, Metadata } from "@/actions/createCheckoutSession";
 import AddtoBasketButton from "@/components/AddtoBasketButton";
 import Loader from "@/components/Loader";
 import { urlFor } from "@/sanity/lib/image";
@@ -38,28 +39,28 @@ function BasketPage() {
       </div>
     );
   }
-//   const handleCheckout = async () => {
-//     if (!SignIn) return;
-//     setIsLoading(true);
-//     try {
-//       const metadata:Metadata = {
-//         orderNumber: crypto.randomUUID(), //example : aj345jl3 lafj5
-//         customerName: user?.fullName ?? "unknown",
-//         customerEmail: user?.emailAddresses[0].emailAddress ?? "unknown",
-//         clerkUserId: user?.id,
-//       };
-//       const checkoutUrl = await createCheckoutSession(groupedItems, metadata);
-//       if (checkoutUrl) {
-//         window.location.href = checkoutUrl;
-//       } else {
-//         console.error("Failed to create checkout session");
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   };
+  const handleCheckout = async () => {
+    if (!SignIn) return;
+    setIsLoading(true);
+    try {
+      const metadata:Metadata = {
+        orderNumber: crypto.randomUUID(), //example : aj345jl3 lafj5
+        customerName: user?.fullName ?? "unknown",
+        customerEmail: user?.emailAddresses[0].emailAddress ?? "unknown",
+        clerkUserId: user?.id,
+      };
+      const checkoutUrl = await createCheckoutSession(groupedItems, metadata);
+      if (checkoutUrl) {
+        window.location.href = checkoutUrl;
+      } else {
+        console.error("Failed to create checkout session");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="container mx-auto p-4 max-w-7xl">
@@ -124,8 +125,8 @@ function BasketPage() {
           </div>
           {isSignedIn ? (
             <button
-            //   onClick={handleCheckout}
-            //   disabled={isLoading}
+              onClick={handleCheckout}
+              disabled={isLoading}
               className="mt-4 w-full bg-blue-500 text-white p-2 rounded-md px-4 hover:bg-blue-600 disabled:bg-gray-400"
             >
               {isLoading ? "Loading..." : "Checkout"}
