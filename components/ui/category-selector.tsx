@@ -2,9 +2,6 @@
 import { Category } from "@/sanity.types";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-interface CategorySelectorComponentProps {
-  categories: Category[];
-}
 import { ChevronsUpDown, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -21,6 +18,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+
+interface CategorySelectorComponentProps {
+  categories: Category[];
+}
 
 export function CategorySelectorComponent({
   categories,
