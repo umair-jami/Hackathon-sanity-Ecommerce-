@@ -2,8 +2,6 @@ import React from "react";
 import { Poppins } from "next/font/google";
 import { getNewProduct } from "@/sanity/lib/products/getNewProduct";
 
-import ProductsView from "./ProductsView";
-import { getAllCategories } from "@/sanity/lib/products/getAllCategories";
 import ProductGrid from "./ProductGrid";
 const poppins = Poppins({
   subsets: ["latin"],
@@ -12,7 +10,6 @@ const poppins = Poppins({
 
 const NewArrival =async () => {
     const products=await getNewProduct()
-    const categories = await getAllCategories();
   return (
     <section
       id="arrivals"

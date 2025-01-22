@@ -10,7 +10,10 @@ const poppins = Poppins({
 export default async function page() {
   const products = await getAllProducts();
   const categories = await getAllCategories();
-
+  console.log(
+    crypto.randomUUID().slice(0, 5) +
+      `>>> Rerender the home page cache with ${products.length} products and ${categories.length} categories`
+  );
   return (
     <>
       <section

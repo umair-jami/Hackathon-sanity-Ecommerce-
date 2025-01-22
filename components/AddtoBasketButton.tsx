@@ -21,10 +21,6 @@ function AddtoBasketButton({ product, disabled }: AddtoBasketButtonProps) {
 
   if (!isClient) return null;
 
-  const handleAddToBasket = () => {
-    addItem(product);
-  };
-
   const handleRemoveFromBasket = () => {
     if (itemCount > 0) {
       removeItem(product._id);
@@ -37,7 +33,9 @@ function AddtoBasketButton({ product, disabled }: AddtoBasketButtonProps) {
         <button
           onClick={handleRemoveFromBasket}
           className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200 ${
-            itemCount === 0 ? "bg-gray-100 cursor-not-allowed" : "bg-gray-200 hover:bg-gray-300"
+            itemCount === 0
+              ? "bg-gray-100 cursor-not-allowed"
+              : "bg-gray-200 hover:bg-gray-300"
           }`}
           disabled={itemCount === 0 || disabled}
         >
@@ -53,21 +51,14 @@ function AddtoBasketButton({ product, disabled }: AddtoBasketButtonProps) {
         <button
           onClick={() => addItem(product)}
           className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200 ${
-            disabled ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+            disabled
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-blue-500 hover:bg-blue-600"
           }`}
         >
           <span className="text-xl font-bold text-white">+</span>
         </button>
       </div>
-      {/* <button
-        onClick={handleAddToBasket}
-        className={`px-4 py-2 rounded-lg text-white font-semibold ${
-          disabled ? "bg-gray-400 cursor-not-allowed" : "bg-green-500 hover:bg-green-600"
-        }`}
-        disabled={disabled}
-      >
-        Add to Basket
-      </button> */}
     </div>
   );
 }

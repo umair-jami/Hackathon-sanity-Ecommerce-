@@ -18,6 +18,10 @@ const ProductPage = async ({
     return notFound();
   }
   const isOutOfStock = product.stock != null && product.stock <= 0;
+  console.log(
+    crypto.randomUUID().slice(0, 5) +
+      `>>> Rerender the product page cache with ${slug}`
+  );
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
