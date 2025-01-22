@@ -44,6 +44,8 @@ export function CategorySelectorComponent({
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
+
+      {/* Correct PopoverContent usage */}
       <PopoverContent className="w-full sm:w-auto">
         <Command>
           <CommandInput
